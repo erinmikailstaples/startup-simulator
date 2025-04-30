@@ -1,22 +1,24 @@
+"""
+Agent that determines a startup's strategic vision based on the name and mission.
+"""
+
 import json
-from typing import Dict, Any
+from typing import Dict, Any, List
 
-from galileo import log
+from backend.agents import BaseAgent
+from backend.services.galileo import galileo_service
+from backend.models.game_models import StartupInput, StrategyOutput
+from backend.services.prompt_templates import STRATEGY_AGENT_PROMPT
 
-from ..services.galileo import galileo_service
-from ..services.prompt_templates import STRATEGY_AGENT_PROMPT
-from ..models.game_models import StartupInput, StrategyOutput
-
-class StrategyAgent:
+class StrategyAgent(BaseAgent):
     """
     Agent that generates an overhyped, buzzword-laden strategic vision for a startup.
     """
     
     def __init__(self):
         """Initialize the strategy agent."""
-        self.name = "strategy_agent"
+        super().__init__(name="strategy_agent")
     
-    @log
     def run(self, input_data: StartupInput) -> StrategyOutput:
         """
         Generate a strategic vision for the startup.
@@ -41,6 +43,7 @@ class StrategyAgent:
         
         strategy_json_str = galileo_service.run_llm_with_logging(
             messages=messages,
+            model_name="gpt-4",
             temperature=0.7,
             max_tokens=500
         )
@@ -66,7 +69,6 @@ class StrategyAgent:
                 confidence=0.95,
                 buzzwords=["AI", "disruptive", "revolutionary", "paradigm-shift", "synergy"]
             )
-
 
 # Create an instance for easy import
 strategy_agent = StrategyAgent() 
