@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+python-dotenv
+httpx
+galileo
+openai
+sqlalchemy
+python-multipart
+pytest 

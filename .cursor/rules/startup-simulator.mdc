@@ -1,0 +1,246 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 💸 Sh*tty Startup Simulator™
+_Tagline: “Raise $10M. Build on vibes. Deploy on Friday.”_
+
+A conference-ready serious game built with FastAPI + Next.js that satirizes AI startup culture while teaching the importance of **custom evaluation metrics** using **Galileo**.
+
+This is an Agentic application:
+An agentic application uses AI agents as autonomous decision-makers, not just tools. Agents make choices, evaluate themselves (or others), and adapt based on outcomes.
+
+For Sh*tty Startup Simulator™, that means:
+
+- Agents make stack choices (e.g., which tools to use, whether to fine-tune, etc.)
+- Agents generate pitch decks or outputs
+- And a final “Investor Agent” decides if you get funded (based on eval + vibes
+
+---
+
+## 🧠 Concept Summary
+
+You’re the CTO of a chaotic, buzzword-laden AI startup. Make stack decisions, prompt your LLM, and demo your product. Then… get roasted by eval results.
+
+Each choice affects:
+- 📈 Investor Confidence
+- 🤖 Model Performance
+- 🔥 Hallucination Risk
+
+---
+
+## 🧱 Tech Stack
+
+| Layer        | Tech                     |
+|--------------|--------------------------|
+| Frontend     | Next.js, React, Tailwind |
+| Backend      | FastAPI, Pydantic        |
+| LLM Handling | OpenAI API  |
+| Eval Engine  | Galileo Python SDK        |
+| DB           | SQLite      |
+| Extras       | Framer Motion,  |
+
+---
+
+# 📁 Project Directory Structure: Sh*tty Startup Simulator™
+
+shitty-startup-simulator/
+├── backend/                         # FastAPI backend
+│   ├── main.py                      # FastAPI app startup
+│   ├── config.py                    # Environment config, API keys
+│   ├── models/                      # Pydantic schemas
+│   │   └── game_models.py           # Request/response models
+│   ├── routes/                      # Route definitions
+│   │   └── simulate.py              # POST /simulate run logic
+│   ├── agents/                      # Modular agents
+│   │   ├── strategy_agent.py        # Chooses stack/vision
+│   │   ├── stackbuilder_agent.py    # Picks tools from the list
+│   │   ├── demo_output_agent.py     # Generates LLM output
+│   │   ├── eval_agent.py            # Sends output to Galileo
+│   │   └── investor_agent.py        # Makes funding decision
+│   ├── tools/                       # Ridiculous VC-flavored tools
+│   │   ├── buzzword_biography.py
+│   │   ├── clever_namer.py
+│   │   ├── tech_complexifier.py
+│   │   ├── tam_identifier.py
+│   │   ├── vibe_checker.py
+│   │   └── founder_quotes.py
+│   └── services/                    # Shared logic
+│       ├── galileo.py               # Galileo eval wrapper
+│       └── prompt_templates.py      # Prompts for agents/tools
+│
+├── frontend/                        # Next.js frontend
+│   ├── pages/
+│   │   ├── index.tsx                # Landing screen
+│   │   └── game.tsx                 # Main simulation UI
+│   ├── components/
+│   │   ├── StackBuilder.tsx         # Select and display stack config
+│   │   ├── PromptTerminal.tsx       # Input and output viewer
+│   │   ├── EvalDisplay.tsx          # Renders Galileo eval results
+│   │   ├── InvestorFeedback.tsx     # Displays final verdict
+│   │   └── GameOverModal.tsx        # Endgame archetype reveal
+│   ├── styles/
+│   │   └── globals.css              # Tailwind styling
+│   └── utils/
+│       └── useGameState.ts          # Zustand store or context
+│
+├── shared/
+│   └── types.ts                     # Shared frontend/backend types
+│
+├── database/
+│   └── models.sql                   # SQLite schema (game sessions, results)
+│
+├── .env                             # Secrets (API keys, endpoints)
+├── requirements.txt                 # Python dependencies
+├── package.json                     # JS dependencies
+├── README.md                        # Overview and setup instructions
+└── .cursorrules                     # Optional: Dev environment setup file
+
+---
+
+🔧 Key Backend Concepts (FastAPI)
+Each agent lives as a callable class/module. They each:
+
+- Take input (startup config, task, prior agent outputs)
+- Make a decision (name, tool, LLM call, judgment)
+- Return structured data downstream
+
+The /simulate route ties them all together:
+@app.post("/simulate")
+def simulate(request: StartupInput):
+    strategy = StrategyAgent().run(request)
+    stack = StackBuilderAgent().run(strategy)
+    demo = DemoOutputAgent().run(stack, request.prompt)
+    evals = EvalAgent().evaluate(request.prompt, demo)
+    investor = InvestorAgent().decide(evals, strategy)
+
+    return SimulationResult(
+        output=demo,
+        evals=evals,
+        decision=investor,
+        archetype=assign_archetype(evals)
+    )
+
+
+## Suggested frontend structure 
+Suggested Frontend Page Flow
+1. index.tsx: Enter startup name + mission
+2. game.tsx: Main UI
+-  See stack get built (animated!)
+-  Submit prompt
+-  Show model output
+-  Display evals + satire roast
+-  Final archetype (e.g. “Prompt Mystic”, “Hype Pirate”)
+
+
+## 🧪 Available Agent Tools for Sh*tty Startup Simulator™
+
+These tools simulate the delusional overconfidence of a VC-pilled AI startup. Each tool can be invoked by an agent to contribute to the stack, pitch, or demo output — with style, nonsense, and occasional insight.
+
+---
+
+### 📣 `buzzword_biography_generator`
+**Purpose:** Generate a bio for your product that sounds impressive but says nothing.
+**Example Output:**  
+_“An autonomous, privacy-first synergy layer enabling frictionless, AI-driven personalization at scale.”_
+
+---
+
+### 🧠 `clever_company_namer`
+**Purpose:** Create a trendy, domain-available startup name using current naming fads.
+**Name Formats:**
+- `Verb.io` → e.g. *Pivotly*
+- `Two techy words jammed together` → e.g. *NeuroOps*, *CloudCrate*
+- `Uncanny Valley Names™` → *Froop*, *Zynthe*
+
+---
+
+### 🏗️ `tech_complexifier`
+**Purpose:** Take a basic idea (e.g. “calendar app”) and layer on unnecessary microservices and blockchain.
+**Example Output:**  
+_“This calendaring experience is underpinned by a distributed intent graph and edge-quantized event streaming architecture.”_
+
+---
+
+### 📊 `tam_identifier`
+**Purpose:** Wildly overestimate the Total Addressable Market.
+**Example Output:**  
+_“Every person with access to a phone and unresolved childhood trauma is a potential user: estimated TAM = $2.4T.”_
+
+---
+
+### 💅 `vibe_checker`
+**Purpose:** Evaluates if your output has “founder energy,” regardless of quality or correctness.
+**Scoring System:**
+- “Serving Unicorn Realness”
+- “Needs more vision”
+- “Too technically accurate to scale”
+
+### 🎩 `founder_quote_inserter`
+**Purpose:** Auto-generates inspirational quotes in the voice of a founder.
+**Example Output:**  
+_“We’re not just building tools. We’re architecting the next human paradigm.”_
+
+---
+
+
+
+## 💻 Key Frontend Components
+
+| Component           | Purpose                                               |
+|---------------------|-------------------------------------------------------|
+| `StackBuilder`      | Let user create an absurd LLM config                  |
+| `PromptTerminal`    | Display task, receive user prompt input               |
+| `EvalDisplay`       | Show Galileo metrics + roasted commentary             |
+| `InvestorFeedback`  | Generate fake funding offers or rejection texts       |
+| `GameOverModal`     | Deliver final company fate & archetype                |
+
+---
+
+## 📊 Galileo Metrics Used
+
+- `hallucination` – Is the model just confidently wrong?
+- `instruction_following` – Did it do what it was told?
+- `tool_use_accuracy` – Did it call the right function?
+- `relevance` – Is the response remotely useful?
+
+> Use these to generate fake business takes:  
+> _“Your hallucination score is 85%. But it sounds confident — so investors love it.”_
+
+---
+
+## 🧠 Learning Objectives (Disguised as Fun)
+
+| Serious Concept                | In-Game Experience                                         |
+|--------------------------------|------------------------------------------------------------|
+| Custom evals > generic metrics | “High fluency, zero correctness? Raise seed anyway.”       |
+| Hallucination ≠ harmless       | “Model recommended a legal strategy… from a Marvel movie.” |
+| Pipeline complexity = risk     | “Why is your memory buffer reciting poetry?”               |
+| Eval drift across agents       | “Summarizer contradicts retriever — but who’s checking?”   |
+
+---
+
+## ✅ MVP Checklist
+
+- [ ] Game UI + page routing  
+- [ ] `StackBuilder` UI with preset modules  
+- [ ] Prompt + Output display  
+- [ ] `/run-demo` FastAPI endpoint  
+- [ ] Galileo eval integration  
+- [ ] Eval results → investor roast logic  
+- [ ] Archetype generator ("Prompt Witch", "VC Whisperer")  
+
+---
+
+## 🎁 Optional Add-ons
+
+- Conference mode (run in kiosk mode, get printed game score)
+- Slackbot version (simulate the game in a corporate channel)
+- Live leaderboard ("Most Hallucinated Demo")
+
+---
+
+> This app is satire. Any resemblance to real AI startups is completely intentional.
+
+
