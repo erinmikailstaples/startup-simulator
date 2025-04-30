@@ -10,6 +10,7 @@ export interface StartupInput {
   name: string;
   mission: string;
   prompt: string;
+  stack?: StackConfiguration; // Optional for backward compatibility
 }
 
 /**
