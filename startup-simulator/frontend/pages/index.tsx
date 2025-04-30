@@ -35,7 +35,7 @@ export default function Home() {
     setError('');
     
     try {
-      // Call the backend directly
+      // Call the backend directly with default stack configuration
       const response = await fetch('/api/simulate', {
         method: 'POST',
         headers: {
@@ -44,7 +44,19 @@ export default function Home() {
         body: JSON.stringify({
           name: startupName,
           mission: mission,
-          prompt: "Evaluate this startup idea" // Simple default prompt
+          prompt: "Evaluate this startup idea", // Simple default prompt
+          stack: {
+            model_name: "gpt-4-turbo",
+            temperature: 0.8,
+            max_tokens: 1000,
+            tools_selected: [
+              "buzzword_biography_generator", 
+              "tech_complexifier", 
+              "tam_identifier", 
+              "founder_quotes"
+            ],
+            architecture_description: "A distributed neural computing architecture with real-time feedback loops"
+          }
         }),
       });
       
@@ -53,6 +65,8 @@ export default function Home() {
       }
       
       const data = await response.json();
+      console.log("API Response:", data); // Add logging to debug
+      
       setResult({
         improvedName: data.startup_name || data.name,
         improvedMission: data.strategy?.vision || mission,

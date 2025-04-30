@@ -14,8 +14,11 @@ export default async function handler(
   }
 
   try {
-    // Forward the request to the FastAPI backend
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8000';
+    // Forward the request to the FastAPI backend with the correct port
+    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8001';
+    console.log(`Sending request to backend: ${backendUrl}/api/simulate`);
+    console.log('Request payload:', JSON.stringify(req.body, null, 2));
+    
     const response = await fetch(`${backendUrl}/api/simulate`, {
       method: 'POST',
       headers: {
@@ -26,6 +29,7 @@ export default async function handler(
 
     // Get response data
     const data = await response.json();
+    console.log('Response from backend:', JSON.stringify(data, null, 2));
 
     // Return the response from the backend
     res.status(response.status).json(data);
