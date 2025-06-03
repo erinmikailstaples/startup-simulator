@@ -293,28 +293,34 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onClose }) => {
 };
 
 // Utility functions for common toast types
-export const toast = {
-  success: (message: string, options?: Partial<AddToastOptions>) => {
-    return useToast().addToast({ type: 'success', message, ...options });
-  },
-  error: (message: string, options?: Partial<AddToastOptions>) => {
-    return useToast().addToast({ type: 'error', message, ...options });
-  },
-  warning: (message: string, options?: Partial<AddToastOptions>) => {
-    return useToast().addToast({ type: 'warning', message, ...options });
-  },
-  info: (message: string, options?: Partial<AddToastOptions>) => {
-    return useToast().addToast({ type: 'info', message, ...options });
-  },
-  // Additional utility to remove a specific toast
-  remove: (id: string) => {
-    useToast().removeToast(id);
-  },
-  // Additional utility to remove all toasts
-  removeAll: () => {
-    useToast().removeAllToasts();
-  },
-};
+// Create a toast function for use within components
+// This fixes the "hook called outside component" error
+export function useToastFunctions() {
+  const toast = useToast();
+  
+  return {
+    success: (message: string, options?: Partial<AddToastOptions>) => {
+      return toast.addToast({ type: 'success', message, ...options });
+    },
+    error: (message: string, options?: Partial<AddToastOptions>) => {
+      return toast.addToast({ type: 'error', message, ...options });
+    },
+    warning: (message: string, options?: Partial<AddToastOptions>) => {
+      return toast.addToast({ type: 'warning', message, ...options });
+    },
+    info: (message: string, options?: Partial<AddToastOptions>) => {
+      return toast.addToast({ type: 'info', message, ...options });
+    },
+    // Additional utility to remove a specific toast
+    remove: (id: string) => {
+      toast.removeToast(id);
+    },
+    // Additional utility to remove all toasts
+    removeAll: () => {
+      toast.removeAllToasts();
+    }
+  };
+}
 
 // Add CSS keyframes for animations (to be added in global CSS)
 // @keyframes slide-in {
