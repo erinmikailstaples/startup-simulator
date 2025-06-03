@@ -1,3 +1,4 @@
+"use client";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -17,34 +18,34 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: "Startup Simulator - AI-Powered Startup Idea Analysis",
-  description: "Analyze your startup idea and get instant AI-powered feedback on its viability. Receive scores on market potential, financial viability, innovation, and risk assessment.",
-  keywords: "startup, idea validation, business analysis, AI startup analysis, entrepreneurship, startup viability, startup simulator",
-  authors: [{ name: "Startup Simulator Team" }],
-  creator: "Startup Simulator",
-  publisher: "Startup Simulator",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  category: "technology",
-  openGraph: {
-    title: "Startup Simulator - AI-Powered Startup Idea Analysis",
-    description: "Analyze your startup idea and get instant AI-powered feedback on its viability.",
-    url: "https://startupsimulator.com",
-    siteName: "Startup Simulator",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Startup Simulator - AI-Powered Startup Idea Analysis",
-    description: "Analyze your startup idea and get instant AI-powered feedback on its viability.",
-    creator: "@startupsimulator",
-  },
-};
+// export const metadata: Metadata = {
+//   title: "Startup Simulator - AI-Powered Startup Idea Analysis",
+//   description: "Analyze your startup idea and get instant AI-powered feedback on its viability. Receive scores on market potential, financial viability, innovation, and risk assessment.",
+//   keywords: "startup, idea validation, business analysis, AI startup analysis, entrepreneurship, startup viability, startup simulator",
+//   authors: [{ name: "Startup Simulator Team" }],
+//   creator: "Startup Simulator",
+//   publisher: "Startup Simulator",
+//   formatDetection: {
+//     email: false,
+//     address: false,
+//     telephone: false,
+//   },
+//   category: "technology",
+//   openGraph: {
+//     title: "Startup Simulator - AI-Powered Startup Idea Analysis",
+//     description: "Analyze your startup idea and get instant AI-powered feedback on its viability.",
+//     url: "https://startupsimulator.com",
+//     siteName: "Startup Simulator",
+//     locale: "en_US",
+//     type: "website",
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "Startup Simulator - AI-Powered Startup Idea Analysis",
+//     description: "Analyze your startup idea and get instant AI-powered feedback on its viability.",
+//     creator: "@startupsimulator",
+//   },
+// };
 
 export const viewport: Viewport = {
   width: "device-width",
