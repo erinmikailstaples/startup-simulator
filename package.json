@@ -1,0 +1,18 @@
+{
+  "name": "startup-simulator-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000\"",
+    "install-deps": "concurrently \"cd frontend && npm install\" \"cd backend && source venv/bin/activate && uv pip install -r requirements.txt\"",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm run start",
+    "setup": "npm install && npm run install-deps"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "tailwind": "^2.3.1"
+  }
+}
